@@ -18,14 +18,14 @@ class Car {
     return '${this.name} - ${this.yearOfProduction}';
   }
 
-  void _doSomething(){
+  void doSomething(){
     print('I am do sthing!');
     // this.handleEvent();
   }
 
   void sayHello({required String personName}) {
     print('Hello $personName');
-    _doSomething();
+    // _doSomething();
   }
 
   //function as variable
