@@ -58,6 +58,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+  //khoi tao doi tuong GlobalKey de set in ra mh
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  final _contentController = TextEditingController();
+  final _amountController = TextEditingController();
+
+  //defines states
+  String _content ="";
+  double _amount = 0;
 
   @override
   void initState() {
@@ -75,36 +84,63 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
-    //Now how to display a Datetime
-    DateTime now = new DateTime.now();
-    DateTime someDate = new DateTime(2022, 5, 2);
+
     // Now Add a state
     return MaterialApp(
       title: "This is a StatefulWidget",
       home: Scaffold(
-        body: Center(
+        key: _scaffoldKey,
+        body: SafeArea(
+          minimum: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              Text(
-                /***
-                 * truy cap cac thuoc tinh trong class MyApp
-                 * this.widget.tenThuocTinh
-                 */
-                // "${someDate.toString()}", //you want to change to a format like "yyyy-MM-dd"
-                //let 's use extra library, intl
-                // DateFormat.yMMMd().format(now),
-                NumberFormat('###.0#', 'en_US').format(12.345678),
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.yellow
-                ),
+              TextField(
+                decoration: InputDecoration(labelText: "Content"),
+                controller: _contentController,
+                onChanged: (text){
+                  this.setState(() {
+                    _content = text;
+                  });
+                },
+
               ),
 
+              TextField(
+                decoration: InputDecoration(labelText: "Ammount(money)"),
+                controller: _amountController,
+                onChanged: (text){
+                  this.setState(() {
+                    _amount = double.tryParse(text) ?? 0;
+                  });
+                },
+
+              ),
+
+              FlatButton(
+                onPressed: () {
+                  // print('Content = $_content, money\'s $_amount');
+                  //Display to UI
+                  // Scaffold.of(context).showSnackBar(
+                  //   SnackBar(content: Text('Content = $_content, money\'s $_amount'))
+                  // );
+
+                  _scaffoldKey.currentState?.showSnackBar(
+                      SnackBar(
+                          content: Text('Content = $_content, money\'s $_amount'),
+                        duration: Duration(seconds: 3),
+                      )
+                    );
+                  },
+                child: Text("Insert Transaction"),
+                textColor: Colors.white,
+                color: Colors.blue
+              )
+
             ],
-          )
-        ),
+          ),
+        )
       )
     );
   }
