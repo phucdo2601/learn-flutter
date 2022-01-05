@@ -63,6 +63,33 @@ void main() {
     print('name: ${names}');
   });
 
+  //Now we try with final and const(constant)
+  //final co the them mot phan tu vao
+  // final List<int> someNumbers = [1,2,3,5]; // const va final khi tao ra thi khong tam chieu dc nua
+  //const thi khong cho them mot ki tu, giong nhu mot list mac dinh
+  // const List<int> someNumbers = [1,2,3,5];
+  // final List<int> someNumbers = [1,2,3,5];
+  // someNumbers.add(8);
+  // someNumbers[0] = 99; // you can update the value in final array
+  final List<int> someNumbers = [1,2,3,5];
+  // someNumbers[0] = 99;// you can not update the value in final array
+  //now reference to a const list
+  // khi mot thang khac tham chieu den const List thi cung khong the thay doi kieu gia tri
+  //Nguoc lai final thi dc
+  List<int> someNumbers2 = someNumbers;
+  someNumbers2.add(123);
+  someNumbers2 = [4,7,9]; // you can reference someNumber2 another array after reference to a 'final
+
+  //you can define an object without creating class
+  Map<String, dynamic> personA = Map();
+  personA['name'] = "hoang";
+  personA['age'] = 19; //you cannot accept int
+
+  Map<double, double> point = Map();
+  point[2.0] = 3.2;//x = 2.0, y = 3.2
+  point[1.0] =5.6; //Yiu can add many key-value pairs as you like!
+
+
   runApp(Center(child: Text( //chi hien thong tin cac sau ki tu
       names.toString(),
       //font size
