@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // class MyApp extends StatelessWidget {
 //   //Private: thay doi thi giao dien thay doi theo
@@ -47,9 +48,7 @@ import 'package:flutter/material.dart';
  * private class de ve giao dien
  */
 class MyApp extends StatefulWidget {
-  String name;
-  int age;
-  MyApp({required this.name, required this.age});
+
 
   @override
   State<StatefulWidget> createState() {
@@ -59,48 +58,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
-  //when a widget is created and running, there are 3 functions that we may concern:
-  //1. initState
-  //2. build() is triggered when we call setState(...)
-  //3. dispose() is called when state/widget object removed
-  //
-  String _email = ""; // this is state
 
-  final emailEditingController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    print('Run initState');
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    emailEditingController.dispose();
     WidgetsBinding.instance?.removeObserver(this);
-    print('Run dispose');
-  }
-
-  //when I know "the app is in background/foreground mode"?
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
-    super.didChangeAppLifecycleState(state);
-    if(state == AppLifecycleState.paused) {
-      print('App is in Background mode');
-    }else if(state == AppLifecycleState.resumed) {
-      print('App is in Foreground mode');
-
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    print('Run build()');
+    //Now how to display a Datetime
+    DateTime now = new DateTime.now();
+    DateTime someDate = new DateTime(2022, 5, 2);
     // Now Add a state
     return MaterialApp(
       title: "This is a StatefulWidget",
@@ -109,56 +86,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: (
-                    TextField(
-                      controller: emailEditingController,
-                      onChanged: (text){
-                        this.setState(() {
-                          _email = text; // when text changed => build rerun => reload widget
-
-                        });
-                      },
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10)
-                            ),
-                          ),
-                          labelText: "Enter your email"
-                      ),
-                    )
-
-
-                ),
-              ),
-
-
 
               Text(
                 /***
                  * truy cap cac thuoc tinh trong class MyApp
                  * this.widget.tenThuocTinh
                  */
-                "See Result here: ",
+                // "${someDate.toString()}", //you want to change to a format like "yyyy-MM-dd"
+                //let 's use extra library, intl
+                // DateFormat.yMMMd().format(now),
+                NumberFormat('###.0#', 'en_US').format(12.345678),
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.yellow
                 ),
               ),
 
-              Text(
-                /***
-                 * truy cap cac thuoc tinh trong class MyApp
-                 * this.widget.tenThuocTinh
-                 */
-                _email,
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.red
-                ),
-              ),
             ],
           )
         ),

@@ -6,7 +6,7 @@ void main() {
   //Center is a widget, Text is a widget
 
   runApp(
-    MyApp(name: "Hoang",age: 22) //How to send arguments/params
+    MyApp() //How to send arguments/params
   );
 }
 
