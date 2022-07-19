@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "809060496095",
+    "project_id": "l-auth-reactjs-b01",
+    "storage_bucket": "l-auth-reactjs-b01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809060496095:android:d615a743bb28de8cd3ef6a",
+        "android_client_info": {
+          "package_name": "com.example.learn_login_gmail_by_flutter_b01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809060496095-kn7j7ee7j8hrmlgo8roed3d4d457ot1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.learn_login_gmail_by_flutter_b01",
+            "certificate_hash": "3bab77a76608ede257b1fee5e4d16dfce5162459"
+          }
+        },
+        {
+          "client_id": "809060496095-o5piv37dflt88k2skdke7kvve5461qfj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA78Zr2CjPUiJf4MMKFVsuXs9NOoATJPI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809060496095-o5piv37dflt88k2skdke7kvve5461qfj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
