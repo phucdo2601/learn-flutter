@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     plainText = tec.text;
                     setState(() {
                       encryptedText =
-                          MyEncryptionDecryption.encryptAES(plainText);
+                          MyEncryptionDecryption.encryptFernet(plainText);
                     });
                   },
                   child: Text("Encrypt"),
@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      encryptedText = MyEncryptionDecryption.decrytAES(encryptedText);
+                      encryptedText = MyEncryptionDecryption.decryptFernet(encryptedText);
                     });
                   },
                   child: Text("Decrypt"),
