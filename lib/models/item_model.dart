@@ -3,5 +3,5 @@ class ItemModel {
   String title;
   int price;
 
-  ItemModel(this.id, this.title, this.price);
+  ItemModel({required this.id, required this.title, required this.price});
 }

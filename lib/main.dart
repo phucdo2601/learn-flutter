@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:learn_datatable_b01/models/item_model.dart';
+import 'package:learn_datatable_b01/screens/datatable_screen02.dart';
 import 'package:learn_datatable_b01/screens/edit_screen.dart';
 import 'package:learn_datatable_b01/screens/view_details_screen.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,7 +31,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      //First Demo with PaginatedDataTable
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //Demo with DataTable
+      // home: const DataTableMockSecondEx(),
     );
   }
 }
@@ -53,11 +58,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final DataTableSource _listData = MyData().;
+  List<ItemModel> listItem = List.generate(
+      200,
+          (index) => ItemModel(id: index.toString(),title: "Item ${index}", price: Random().nextInt(10000)));
+
+  //nhan bien list object o ngoai cua class DataTableSource
+  DataTableSource get _listData => MyDataSearch(itemsFiltered);
+
+  //cach nhan class list thong thuong khong truyen object list tu ben ngoai
+  // DataTableSource get _listDataBasic => MyData();
   TextEditingController controller = TextEditingController();
   String _searchResult = '';
   List<ItemModel> itemsFiltered = [];
-
+  @override
+  void initState() {
+    super.initState();
+    //setState khoi dau hien toan bo du lieu
+    itemsFiltered = listItem;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onChanged: (value) {
                     setState(() {
                       _searchResult = value;
+                      itemsFiltered = listItem.where((element) => element.title.contains(_searchResult) || element.price.toString().contains(_searchResult)).toList();
                     });
                   }),
               trailing: new IconButton(
@@ -112,124 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
 enum _PopupMenuValue { viewDetailsScreen, viewEditScreen, chickens }
 
-class MyData extends DataTableSource {
-  final List<ItemModel> _listData = List.generate(
-      200,
-          (index) => ItemModel(index.toString(), "Item ${index}", Random().nextInt(10000)));
-
-  @override
-  DataRow? getRow(int index) {
-    String id = _listData[index].id.toString();
-
-    return DataRow(cells: [
-      DataCell(Text((_listData[index].id.toString()))),
-      DataCell(Text((_listData[index].title.toString()))),
-      DataCell(Text((_listData[index].price.toString()))),
-      DataCell(
-        PopupMenuButton<_PopupMenuValue>(
-          itemBuilder: (BuildContext context) => [
-            PopupMenuItem(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor:
-                  Theme.of(context).colorScheme.onSecondaryContainer,
-                  backgroundColor:
-                  Theme.of(context).colorScheme.secondaryContainer,
-                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (c) => ViewDetailsScreen(id: id)));
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.remove_red_eye_rounded,
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: Text("View Details"),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            PopupMenuItem(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor:
-                      Theme.of(context).colorScheme.onSecondaryContainer,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
-                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (c) => EditScreen(id: id,)));
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: Text("Edit"),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            PopupMenuItem(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor:
-                  Theme.of(context).colorScheme.onSecondaryContainer,
-                  backgroundColor:
-                  Theme.of(context).colorScheme.secondaryContainer,
-                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('all the chickens are in the coop')));
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.offline_bolt,
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: Text("Test Check"),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ]);
-  }
-
-  @override
-  // TODO: implement isRowCountApproximate
-  bool get isRowCountApproximate => false;
-
-  @override
-  // TODO: implement rowCount
-  int get rowCount => _listData.length;
-
-  @override
-  // TODO: implement selectedRowCount
-  int get selectedRowCount => 0;
-}
-
-// class MyDataSearch extends DataTableSource {
-//
-//   final List<ItemModel> _listData;
-//
-//   MyDataSearch(this._listData);
+// class MyData extends DataTableSource {
+//   List<ItemModel> _listData = List.generate(
+//       200,
+//           (index) => ItemModel(id: index.toString(),title: "Item ${index}", price: Random().nextInt(10000)));
 //
 //   @override
 //   DataRow? getRow(int index) {
@@ -272,9 +177,9 @@ class MyData extends DataTableSource {
 //               child: ElevatedButton(
 //                 style: ElevatedButton.styleFrom(
 //                   foregroundColor:
-//                   Theme.of(context).colorScheme.onSecondaryContainer,
+//                       Theme.of(context).colorScheme.onSecondaryContainer,
 //                   backgroundColor:
-//                   Theme.of(context).colorScheme.secondaryContainer,
+//                       Theme.of(context).colorScheme.secondaryContainer,
 //                 ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
 //                 onPressed: () {
 //                   Navigator.of(context).push(
@@ -338,3 +243,118 @@ class MyData extends DataTableSource {
 //   // TODO: implement selectedRowCount
 //   int get selectedRowCount => 0;
 // }
+
+//Pagination table with list parameter
+class MyDataSearch extends DataTableSource {
+
+  final List<ItemModel> _listData;
+
+  MyDataSearch(this._listData);
+
+  @override
+  DataRow? getRow(int index) {
+    String id = _listData[index].id.toString();
+
+    return DataRow(cells: [
+      DataCell(Text((_listData[index].id.toString()))),
+      DataCell(Text((_listData[index].title.toString()))),
+      DataCell(Text((_listData[index].price.toString()))),
+      DataCell(
+        PopupMenuButton<_PopupMenuValue>(
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor:
+                  Theme.of(context).colorScheme.onSecondaryContainer,
+                  backgroundColor:
+                  Theme.of(context).colorScheme.secondaryContainer,
+                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (c) => ViewDetailsScreen(id: id)));
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.remove_red_eye_rounded,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text("View Details"),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            PopupMenuItem(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor:
+                  Theme.of(context).colorScheme.onSecondaryContainer,
+                  backgroundColor:
+                  Theme.of(context).colorScheme.secondaryContainer,
+                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (c) => EditScreen(id: id,)));
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text("Edit"),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            PopupMenuItem(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor:
+                  Theme.of(context).colorScheme.onSecondaryContainer,
+                  backgroundColor:
+                  Theme.of(context).colorScheme.secondaryContainer,
+                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('all the chickens are in the coop')));
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.offline_bolt,
+                      color: Colors.black,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Text("Test Check"),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ]);
+  }
+
+  @override
+  // TODO: implement isRowCountApproximate
+  bool get isRowCountApproximate => false;
+
+  @override
+  // TODO: implement rowCount
+  int get rowCount => _listData.length;
+
+  @override
+  // TODO: implement selectedRowCount
+  int get selectedRowCount => 0;
+}
