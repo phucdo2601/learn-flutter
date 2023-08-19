@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:l_pro_flu_base_v_3_13_b01/pages/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -84,7 +83,7 @@ class LoginPage extends StatelessWidget {
                         //   return HomePage();
                         // }));
 
-                        Navigator.of(context).pushNamed("/home");
+                        Navigator.of(context).pushReplacementNamed("/home");
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.amber,
