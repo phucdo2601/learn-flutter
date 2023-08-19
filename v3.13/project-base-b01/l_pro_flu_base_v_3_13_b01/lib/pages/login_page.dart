@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/pages/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -79,7 +80,11 @@ class LoginPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        print("Logged in");
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                        //   return HomePage();
+                        // }));
+
+                        Navigator.of(context).pushNamed("/home");
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.amber,
