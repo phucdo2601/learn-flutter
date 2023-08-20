@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:l_pro_flu_base_v_3_13_b01/pages/home_page.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/pages/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -15,9 +16,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Bottom Navigation Container"),
-      ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -48,7 +46,7 @@ class _MainPageState extends State<MainPage> {
           });
         },
         currentIndex: currentIndex,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         backgroundColor: Colors.amber,
@@ -67,8 +65,6 @@ class _MainPageState extends State<MainPage> {
     Center(
       child: Text('Messages'),
     ),
-    Center(
-      child: Text('Profile'),
-    ),
+    ProfilePage(),
   ];
 }

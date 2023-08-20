@@ -1,50 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:l_pro_flu_base_v_3_13_b01/styles/app_colors.dart';
-import 'package:l_pro_flu_base_v_3_13_b01/styles/app_text.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/components/post_item.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/components/toolbar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  List<String> users = [];
 
   @override
   Widget build(BuildContext context) {
+    mockUsersFromServer();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        title: Text("Learn Flutter b01"),
-        centerTitle: false,
-        actions: [Icon(Icons.location_on_outlined)],
+      appBar: Toolbar(
+        title: "Phucdn-app-b01",
+        actions: [
+          IconButton(
+              onPressed: (){},
+              icon: SvgPicture.asset("assets/svg/ic_location.svg")),
+        ],
       ),
-      body: ListView(
-        children: mockUsersFromServer(),
+      body: ListView.separated(
+        itemBuilder: (context, index) {
+          return PostItem(
+            user: users[index],
+          );
+        },
+        itemCount: users.length,
+        separatorBuilder: (BuildContext context, int index) {
+          return SizedBox(
+            height: 24,
+          );
+        },
       ),
     );
   }
 
-  Widget _userItem(){
-    return Row(
-      children: [
-        Image.asset(
-          'assets/temp/user1.png',
-          width: 40,
-          height: 40,
-        ),
-        SizedBox(
-          width: 16,
-        ),
-        Text(
-          "Phucdn",
-          style: AppText.subtitle3,
-        ),
-      ],
-    );
-  }
-
-  List<Widget> mockUsersFromServer() {
-    List<Widget> users = [];
-
-    for(var i = 0; i < 1000; i++) {
-      users.add(_userItem());
+  mockUsersFromServer() {
+    for (var i = 0; i < 1000; i++) {
+      users.add("User number $i");
     }
-    return users;
   }
 }
