@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:l_pro_flu_base_v_3_13_b01/styles/app_colors.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/styles/app_text.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -32,6 +33,7 @@ class HomePage extends StatelessWidget {
         ),
         Text(
           "Phucdn",
+          style: AppText.subtitle3,
         ),
       ],
     );
