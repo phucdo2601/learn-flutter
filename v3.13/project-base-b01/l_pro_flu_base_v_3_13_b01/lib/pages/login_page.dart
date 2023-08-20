@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/config/app_icons.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/config/app_routes.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/config/app_strings.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -16,7 +19,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 Spacer(),
                 Text(
-                  "Hello, Welcome Back!",
+                    AppStrings.helloWelcome,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -27,7 +30,7 @@ class LoginPage extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
-                  "Login to continue",
+                  AppStrings.loginToContinue,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -83,7 +86,7 @@ class LoginPage extends StatelessWidget {
                         //   return HomePage();
                         // }));
 
-                        Navigator.of(context).pushReplacementNamed("/main");
+                        Navigator.of(context).pushReplacementNamed(AppRoutes.main);
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.amber,
@@ -115,7 +118,7 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "assets/images/google.png",
+                          AppIcons.icGoogle,
                           width: 22,
                           height: 22,
                         ),
@@ -145,7 +148,7 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "assets/images/facebook.png",
+                          AppIcons.icFacebook,
                           width: 22,
                           height: 22,
                         ),

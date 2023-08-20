@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:l_pro_flu_base_v_3_13_b01/components/toolbar.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/components/user_avatar.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/config/app_routes.dart';
 import 'package:l_pro_flu_base_v_3_13_b01/styles/app_text.dart';
 
 enum ProfileMenu {
@@ -19,7 +21,7 @@ class ProfilePage extends StatelessWidget {
           PopupMenuButton<ProfileMenu>(onSelected: (value) {
             switch (value) {
               case ProfileMenu.edit:
-                print("edit");
+                  Navigator.of(context).pushNamed(AppRoutes.editProfilePage);
                 break;
 
               case ProfileMenu.logout:
@@ -41,13 +43,8 @@ class ProfilePage extends StatelessWidget {
       body: Column(
         children: [
 
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            child: Image.asset(
-              "assets/temp/user1.png",
-              width: 90,
-              height: 90,
-            ),
+          UserAvatar(
+            size: 90,
           ),
           SizedBox(
             height: 24,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:l_pro_flu_base_v_3_13_b01/config/app_icons.dart';
 import 'package:l_pro_flu_base_v_3_13_b01/pages/home_page.dart';
 import 'package:l_pro_flu_base_v_3_13_b01/pages/profile_page.dart';
 
@@ -20,23 +21,23 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: SvgPicture.asset("assets/svg/ic_home.svg"),
+            icon: SvgPicture.asset(AppIcons.icHome),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset("assets/svg/ic_favorite.svg"),
+            icon: SvgPicture.asset(AppIcons.icFavorite),
             label: "Favorite",
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset("assets/svg/ic_add.svg"),
+            icon: SvgPicture.asset(AppIcons.icAdd),
             label: "Add Post",
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset("assets/svg/ic_messages.svg"),
+            icon: SvgPicture.asset(AppIcons.icMessage),
             label: "Message",
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset("assets/svg/ic_user.svg"),
+            icon: SvgPicture.asset(AppIcons.icUser),
             label: "Profile",
           ),
         ],
