@@ -13,3 +13,81 @@ const commentsURL = baseURL + '/comments';
 const serverError = 'Server error';
 const unauthorized = 'Unauthorized';
 const somethingWentWrong = 'Something went wrong, try again!';
+
+// Input decoration
+InputDecoration kInputDecoration(String label) {
+  return InputDecoration(
+    labelText: label,
+    contentPadding: EdgeInsets.all(10),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        width: 1,
+        color: Colors.black,
+      ),
+    ),
+  );
+}
+
+//button
+TextButton kTextButton(String label, Function onPressed) {
+  return TextButton(
+    onPressed:  () => onPressed(),
+    child: Text(
+      label,
+      style: TextStyle(color: Colors.white),
+    ),
+    style: ButtonStyle(
+      backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
+      padding: MaterialStateProperty.resolveWith(
+        (states) => EdgeInsets.symmetric(vertical: 10),
+      ),
+    ),
+  );
+}
+
+//loginRegisterHint
+Row kLoginRegisterHint(String text, String label, Function onTap) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Text(text),
+      GestureDetector(
+        child: Text(
+          label,
+          style: TextStyle(color: Colors.blue),
+        ),
+        onTap: () => onTap(),
+      ),
+    ],
+  );
+}
+
+// like and comment button
+Expanded kLikeAndCommentButton(
+    int value, IconData icon, Color color, Function onTap) {
+  return Expanded(
+    child: Material(
+      child: InkWell(
+        onTap: () => onTap(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 10,
+          ),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                size: 16,
+                color: color,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Text('$value'),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}

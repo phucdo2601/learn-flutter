@@ -15,7 +15,8 @@ Future<ApiResponse> login(String email, String password) async {
       headers: {'Accept': 'application/json'},
       body: {
         'email': email,
-        'password': password
+        'password': password,
+        'password_confirmation': password,
       }
     );
 
