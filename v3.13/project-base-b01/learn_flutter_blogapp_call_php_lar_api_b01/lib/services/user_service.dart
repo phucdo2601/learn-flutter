@@ -16,7 +16,6 @@ Future<ApiResponse> login(String email, String password) async {
       body: {
         'email': email,
         'password': password,
-        'password_confirmation': password,
       }
     );
 
