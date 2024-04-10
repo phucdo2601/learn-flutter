@@ -1,0 +1,5 @@
+what is yield in flutter?
+
+In Flutter, "yield" typically refers to the process of suspending the execution of a function and producing a value. This is commonly used in asynchronous programming, especially with features like async and await.
+
+In Dart, the language used for Flutter development, the "yield" keyword is often used in conjunction with generators. Generators are functions that can generate a sequence of values lazily, on demand, rather than computing them all at once and returning a List.
