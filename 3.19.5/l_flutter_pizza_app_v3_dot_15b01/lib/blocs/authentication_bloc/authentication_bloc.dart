@@ -1,0 +1,27 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+import 'package:user_repository/user_repository.dart';
+import 'dart:async';
+
+part 'authentication_event.dart';
+part 'authentication_state.dart';
+
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+
+  final UserRepository userRepository;
+  late final StreamSubscription<MyUser?> _userSubscription;
+
+  AuthenticationBloc({
+    required this.userRepository
+}) : super(AuthenticationState.unknown()) {
+    _userSubscription = userRepository.user.listen((user) {
+      add(AuthenticationUserChanged(user));
+
+    });
+
+    on<AuthenticationEvent>((event, emit) {
+      // TODO: implement event handler
+    });
+  }
+}

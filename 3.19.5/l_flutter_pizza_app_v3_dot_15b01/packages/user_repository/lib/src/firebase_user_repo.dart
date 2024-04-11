@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +24,8 @@ class FirebaseUserRepo implements UserRepository {
       await usersCollection.doc(myUser.userId)
           .set(myUser.toEntity().toDocument());
     } catch(e) {
-
+      log(e.toString());
+      rethrow;
     }
   }
 
@@ -37,7 +38,7 @@ class FirebaseUserRepo implements UserRepository {
 
       return myUser;
     } catch (e) {
-      log(e.toString() as num);
+      log(e.toString());
       rethrow;
     }
   }
@@ -48,7 +49,7 @@ class FirebaseUserRepo implements UserRepository {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } catch (e) {
-      log(e.toString() as num);
+      log(e.toString());
       rethrow;
     }
   }
