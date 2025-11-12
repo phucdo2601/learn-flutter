@@ -1,3 +1,5 @@
+import 'package:flut_v3_35_food_delivery_app_b01/model/category_model.dart';
+import 'package:flut_v3_35_food_delivery_app_b01/service/category_data.dart';
 import 'package:flut_v3_35_food_delivery_app_b01/service/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<CategoryModel> categories = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    categories = getCategories();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,8 +92,48 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            SizedBox(height: 20),
+            Container(
+              height: 80,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  return CategoryTile(
+                    image: categories[index].image!,
+                    name: categories[index].name!,
+                  );
+                },
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CategoryTile extends StatefulWidget {
+  String name, image;
+  CategoryTile({super.key, required this.name, required this.image});
+
+  @override
+  State<CategoryTile> createState() => _CategoryTileState();
+}
+
+class _CategoryTileState extends State<CategoryTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      margin: EdgeInsets.only(right: 20),
+      decoration: BoxDecoration(color: Color(0xffef2b39)),
+      child: Row(
+        children: [
+          Image.asset(widget.image, height: 50, width: 50, fit: BoxFit.cover),
+          Text(widget.name, style: AppWidget.whiteTextFieldStyle()),
+        ],
       ),
     );
   }
