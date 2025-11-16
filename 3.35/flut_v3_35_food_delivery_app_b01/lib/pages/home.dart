@@ -1,5 +1,7 @@
 import 'package:flut_v3_35_food_delivery_app_b01/model/category_model.dart';
+import 'package:flut_v3_35_food_delivery_app_b01/model/pizza_model.dart';
 import 'package:flut_v3_35_food_delivery_app_b01/service/category_data.dart';
+import 'package:flut_v3_35_food_delivery_app_b01/service/pizza_data.dart';
 import 'package:flut_v3_35_food_delivery_app_b01/service/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +14,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<CategoryModel> categories = [];
+  List<PizzaModel> pizzas = [];
   String track = "0";
 
   @override
   void initState() {
     // TODO: implement initState
     categories = getCategories();
+    pizzas = getPizzas();
     super.initState();
   }
 
@@ -109,6 +113,29 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
+            SizedBox(height: 10),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(right: 10),
+                child: GridView.builder(
+                  padding: EdgeInsets.zero,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.72,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 15,
+                  ),
+                  itemCount: pizzas.length,
+                  itemBuilder: (context, index) {
+                    return FoodTile(
+                      pizzas[index].name!,
+                      pizzas[index].image!,
+                      pizzas[index].price!,
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -120,22 +147,33 @@ class _HomeState extends State<Home> {
       onTap: () => {track = categoryIndex, setState(() {})},
       child: track == categoryIndex
           ? Container(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              margin: EdgeInsets.only(right: 20),
-              decoration: BoxDecoration(
-                color: Color(0xffef2b39),
+              margin: EdgeInsets.only(right: 20, bottom: 10),
+              child: Material(
+                elevation: 3,
                 borderRadius: BorderRadius.circular(30),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(image, height: 50, width: 50, fit: BoxFit.cover),
-                  SizedBox(width: 10),
-                  Text(name, style: AppWidget.whiteTextFieldStyle()),
-                ],
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    color: Color(0xffef2b39),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        image,
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(width: 10),
+                      Text(name, style: AppWidget.whiteTextFieldStyle()),
+                    ],
+                  ),
+                ),
               ),
             )
           : Container(
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 20, bottom: 10),
               padding: EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 color: Color(0xFFececf8),
@@ -149,6 +187,50 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
+    );
+  }
+
+  Widget FoodTile(String name, String image, String price) {
+    return Container(
+      margin: EdgeInsets.only(right: 20),
+      padding: EdgeInsets.only(left: 10, top: 10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Image.asset(
+              image,
+              height: 150,
+              width: 150,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Text(name, style: AppWidget.boldTextFieldStyle()),
+          Text("\$$price", style: AppWidget.SimpleTextFieldStyle()),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                height: 50,
+                width: 80,
+                decoration: BoxDecoration(
+                  color: Color(0xffef2b39),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                ),
+                child: Icon(Icons.arrow_forward, color: Colors.white, size: 30),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
